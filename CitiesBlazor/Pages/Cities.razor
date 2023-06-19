@@ -1,4 +1,6 @@
 ﻿@page "/cities"
+@using System.Text.Json;
+@using System.Text;
 @inject HttpClient client
 
 
@@ -15,6 +17,7 @@ else
             <tr>
                 <th>City name</th>
                 <th>Population</th>
+                <th>Select</th>
             </tr>
         </thead>
         <tbody>
@@ -23,18 +26,44 @@ else
                 <tr>
                     <td>@city.CityName</td>
                     <td>@city.Population</td>
+                    <td>Select</td>
                 </tr>
             }
         </tbody>
     </table>
 }
-<ul></ul>
+<input type="text" @bind="newCity.CityName" />
+<input type="number" @bind="newCity.Population" />
+<button class="bttn" @onclick="AddCity">Add City</button>
+
 
 @code {
-    private List<CitiesPopulation> cities;
+    private List<CitiesPopulationModel> cities;
+
+    CitiesPopulationModel newCity = new CitiesPopulationModel();
 
     protected override async Task OnInitializedAsync()
     {
-        cities = await client.GetFromJsonAsync<List<CitiesPopulation>>("/api/cities");
+        await LoadData();
+    }
+    private async Task LoadData()
+    {
+        cities = await client.GetFromJsonAsync<List<CitiesPopulationModel>>("/api/cities");
+    }
+    private async Task AddCity()
+    {
+        newCity.Id = 0;
+
+        try
+        {
+            await client.PostAsJsonAsync("/api/cities", newCity);
+            await LoadData();
+
+        }
+        catch (Exception ex)
+        {
+            
+            throw ex.InnerException;
+        }
     }
 }

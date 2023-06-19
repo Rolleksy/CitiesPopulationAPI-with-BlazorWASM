@@ -23,9 +23,13 @@ public class Program
                 builder =>
                 {
                     builder.WithOrigins("https://localhost:7293", "http://localhost:5144");
+                    builder.AllowAnyMethod();
+                    builder.AllowAnyHeader();
                 });
         }
             );
+
+        
 
         var app = builder.Build();
 
@@ -39,6 +43,7 @@ public class Program
         app.UseHttpsRedirection();
 
         app.UseCors("AllowBlazorOrigin");
+       
 
         app.UseAuthorization();
 

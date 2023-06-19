@@ -1,4 +1,6 @@
-﻿namespace CitiesPopulationAPI;
+﻿using Models;
+
+namespace CitiesPopulationAPI;
 
 public static class CitiesPopAPI
 {
