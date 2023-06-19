@@ -4,11 +4,11 @@ public static class CitiesPopAPI
 {
     public static void ConfigureApi(this WebApplication app)
     {
-        app.MapGet("/Cities", GetCities);
-        app.MapGet("/Cities/{id}", GetCity);
-        app.MapPost("/Cities", InsertCity);
-        app.MapPut("/Cities", UpdateCity);
-        app.MapDelete("/Cities", DeleteCity);
+        app.MapGet("/api/cities", GetCities);
+        app.MapGet("/api/cities/{id}", GetCity);
+        app.MapPost("/api/cities", InsertCity);
+        app.MapPut("/api/cities", UpdateCity);
+        app.MapDelete("/api/cities", DeleteCity);
     }
 
     private static async Task<IResult> GetCities(ICitiesPopData popData)

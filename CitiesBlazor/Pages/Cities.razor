@@ -1,0 +1,40 @@
+﻿@page "/cities"
+@inject HttpClient client
+
+
+<h3>Cities</h3>
+
+@if (cities == null)
+{
+    <p>There's nothing to see</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>City name</th>
+                <th>Population</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var city in cities)
+            {
+                <tr>
+                    <td>@city.CityName</td>
+                    <td>@city.Population</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<ul></ul>
+
+@code {
+    private List<CitiesPopulation> cities;
+
+    protected override async Task OnInitializedAsync()
+    {
+        cities = await client.GetFromJsonAsync<List<CitiesPopulation>>("/api/cities");
+    }
+}

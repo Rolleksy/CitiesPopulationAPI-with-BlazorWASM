@@ -17,6 +17,16 @@ public class Program
         builder.Services.AddSingleton<ISqlDataAccess, SqlDataAccess>();
         builder.Services.AddSingleton<ICitiesPopData, CitiesPopData>();
 
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy(name: "AllowBlazorOrigin",
+                builder =>
+                {
+                    builder.WithOrigins("https://localhost:7293", "http://localhost:5144");
+                });
+        }
+            );
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -27,6 +37,8 @@ public class Program
         }
 
         app.UseHttpsRedirection();
+
+        app.UseCors("AllowBlazorOrigin");
 
         app.UseAuthorization();
 
