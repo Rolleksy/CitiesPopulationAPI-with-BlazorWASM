@@ -52,6 +52,8 @@ else
     }
     private async Task AddCity()
     {
+        //DBCC CHECKINDENT - "RESEED" in TSQL, because id doesnt decrease with deletion
+
         newCity.Id = 0;
 
         try

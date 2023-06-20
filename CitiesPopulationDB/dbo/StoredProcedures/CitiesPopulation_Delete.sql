@@ -4,5 +4,5 @@ AS
 	begin
 		DELETE
 		from dbo.Population
-		where Id = @Id;
+		where Id = @Id
 	end
